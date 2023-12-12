@@ -55,7 +55,7 @@ public class HomeworkEx1_A {
 		}
 		
 		scan.close();
-		
+		 
 	}
 
 }
