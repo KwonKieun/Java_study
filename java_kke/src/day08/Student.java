@@ -64,4 +64,6 @@ public class Student {
 		math = mathScore;
 	}
 	
+	public Student() {} // => 생성자 없을 때 자동으로 추가됨
+	
 }
