@@ -2,7 +2,7 @@ package day11.homework;
 
 import java.util.Scanner;
 
-public class HomeworkEx1 {
+public class HomeworkEx1_H {
 	/* 고등 학생 성적을 관리하는 프로그램을 작성하세요.
 	 * 메뉴
 	 * 1. 학생 관리
@@ -22,18 +22,18 @@ public class HomeworkEx1 {
 	 * */
 	private static Scanner scan = new Scanner(System.in);
 	private static Student [] stdList = new Student[10];
-	private static Subject [] sbjs = new Subject[20];
+	private static Subject_H [] sbjs = new Subject_H[20];
 	private static int count = 0;
 	private static int countS = 1;
 	public static void main(String[] args) {
 		// 각 학생의 번호를 1번부터 20번까지 지정
 		for(int i = 0; i < sbjs.length; i++) {
-			sbjs[i] = new Subject(); // *유의하기* 각 번지마다 학생 인스턴스를 만들어줘야 함.
+			sbjs[i] = new Subject_H(); // *유의하기* 각 번지마다 학생 인스턴스를 만들어줘야 함.
 		}
 		
-		for(Subject sbj : sbjs) {
+		for(Subject_H sbj : sbjs) {
 			sbj.studentNum = countS++;
-			//sbj.printInfo();
+			sbj.printInfo();
 		}
 		
 		
@@ -252,7 +252,11 @@ public class HomeworkEx1 {
 		System.out.print("학생 선택 : ");
 		int studentNum = scan.nextInt();
 		
-		for(Subject sbj : sbjs) {
+		for(Subject_H sbj : sbjs) {
+			// 입력한 학생 번호와 일치하는 학생 정보를 찾아서 해당하는 과목에 맞는 성적을 수정
+			if(sbj.studentNum != studentNum) {
+				continue;
+			}
 			// 입력한 학생 번호와 일치하는 학생 정보를 찾아서 해당하는 과목에 맞는 성적을 수정
 			if(sbj.studentNum != studentNum) {
 				continue;
@@ -260,17 +264,23 @@ public class HomeworkEx1 {
 			// 일치하는 학생이 있을 때
 			switch(subject) {
 			case 1:
-				sbj.setKor(0);
-				//확인용
+				sbj.setKorMiddleScore(0);
+				sbj.setKorFinalScore(0);
+				sbj.setKorPeScore(0);
+				//확인용 코드
 //				for(int i = 0; i < countS-1; i++) {
 //					sbjs[i].printInfo();
 //				}
 				return;
 			case 2:
-				sbj.setEng(0);
+				sbj.setEngMiddleScore(0);
+				sbj.setEngFinalScore(0);
+				sbj.setEngPeScore(0);
 				return;
 			case 3:
-				sbj.setMath(0);
+				sbj.setMathMiddleScore(0);
+				sbj.setMathFinalScore(0);
+				sbj.setMathPeScore(0);
 				return;
 			default:
 				System.out.println("잘못된 과목입니다.");
@@ -286,10 +296,14 @@ public class HomeworkEx1 {
 		int subject = scan.nextInt();
 		System.out.print("학생 선택 : ");
 		int studentNum = scan.nextInt();
-		System.out.print("성적 : ");
-		double studentScr = scan.nextDouble();
+		System.out.print("중간성적 : ");
+		double middleScr = scan.nextDouble();
+		System.out.print("기말성적 : ");
+		double finalScr = scan.nextDouble();
+		System.out.print("수행평가성적 : ");
+		double peScr = scan.nextDouble();
 		
-		for(Subject sbj : sbjs) {
+		for(Subject_H sbj : sbjs) {
 			// 입력한 학생 번호와 일치하는 학생 정보를 찾아서 해당하는 과목에 맞는 성적을 수정
 			if(sbj.studentNum != studentNum) {
 				continue;
@@ -297,17 +311,23 @@ public class HomeworkEx1 {
 			// 일치하는 학생이 있을 때
 			switch(subject) {
 			case 1:
-				sbj.setKor(studentScr);
+				sbj.setKorMiddleScore(middleScr);
+				sbj.setKorFinalScore(finalScr);
+				sbj.setKorPeScore(peScr);
 				//확인용 코드
 //				for(int i = 0; i < countS-1; i++) {
 //					sbjs[i].printInfo();
 //				}
 				return;
 			case 2:
-				sbj.setEng(studentScr);
+				sbj.setEngMiddleScore(middleScr);
+				sbj.setEngFinalScore(finalScr);
+				sbj.setEngPeScore(peScr);
 				return;
 			case 3:
-				sbj.setMath(studentScr);
+				sbj.setMathMiddleScore(middleScr);
+				sbj.setMathFinalScore(finalScr);
+				sbj.setMathPeScore(peScr);
 				return;
 			default:
 				System.out.println("잘못된 과목입니다.");
