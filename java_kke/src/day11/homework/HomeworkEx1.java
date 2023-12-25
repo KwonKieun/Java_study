@@ -3,6 +3,7 @@ package day11.homework;
 import java.util.Scanner;
 
 public class HomeworkEx1 {
+	//쉬운 버전
 	/* 고등 학생 성적을 관리하는 프로그램을 작성하세요.
 	 * 메뉴
 	 * 1. 학생 관리
