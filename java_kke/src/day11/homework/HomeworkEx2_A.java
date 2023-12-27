@@ -9,7 +9,7 @@ public class HomeworkEx2_A {
 	 */
 	private static Scanner scan = new Scanner(System.in);
 	public static void main(String[] args) {
-		System.out.print("두 정수와 산술연산자를 입력해주세요. (예 : 1 + 2) : ");
+		System.out.print("두 정수와 산술연산자를 입력해주세요.(예 : 1 + 2) : ");
 		int num1 = scan.nextInt();
 		char opr = scan.next().charAt(0);
 		int num2 = scan.nextInt();
