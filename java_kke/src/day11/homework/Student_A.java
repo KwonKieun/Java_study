@@ -137,5 +137,4 @@ public class Student_A {
 		subjects = new Subject_A[5];
 	}
 	
-	
 }

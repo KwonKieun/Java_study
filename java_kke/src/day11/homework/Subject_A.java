@@ -1,5 +1,7 @@
 package day11.homework;
 
+/* 고정된 과목이 아니라 다양한 과목을 등록하고 활용하기 위해
+ */
 public class Subject_A {
 	// 과목명, 총점
 	private String title;
