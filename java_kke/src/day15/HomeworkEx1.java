@@ -1,4 +1,4 @@
-package day15.student;
+package day15;
 
 public class HomeworkEx1 {
 
