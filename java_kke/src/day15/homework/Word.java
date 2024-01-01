@@ -34,22 +34,19 @@ public class Word {
 		return Objects.hash(word, PoS);
 	}
 	
-//	public Word(String word, String PoS, String meaning) {
-//		this.word = word;
-//		this.PoS = PoS;
-//		means.add(meaning);
-//	}
-	
+	//뜻을 여러 개 저장할 수 있게 하기 위해 means 리스트에 뜻을 추가하는 메서드
 	public void addMean(String meaning) {
 		means.add(meaning);
 		System.out.println("뜻 추가--");
 	}
 	
+	//means 리스트에 뜻을 삭제하는 메서드
 	public void delMean(String meaning) {
 		means.remove(meaning);
 		System.out.println("뜻 삭제--");
 	}
 	
+	//means 리스트의 길이를 반환하는 메서드
 	public int meansLen() {
 		return this.means.size();
 	}

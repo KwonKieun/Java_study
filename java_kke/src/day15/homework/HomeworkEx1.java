@@ -20,6 +20,10 @@ public class HomeworkEx1 {
 	 * - 오답노트를 관리하는 기능
 	 * - 많이 조회한 단어를 확인하는 기능
 	 */
+	/* Program 인터페이스 생성하여 활용
+	 * Program 인터페이스를 구현한 구현 클래스 WordProgram을 생성하여 활용
+	 * 단어, 뜻, 품사 정보는 Word 클래스를 생성하여 활용
+	 */
 	public static void main(String[] args) {
 		WordProgram wp = new WordProgram();
 		wp.run();
