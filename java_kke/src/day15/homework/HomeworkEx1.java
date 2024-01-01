@@ -1,4 +1,4 @@
-package day15;
+package day15.homework;
 
 public class HomeworkEx1 {
 
@@ -21,7 +21,8 @@ public class HomeworkEx1 {
 	 * - 많이 조회한 단어를 확인하는 기능
 	 */
 	public static void main(String[] args) {
-		
+		WordProgram wp = new WordProgram();
+		wp.run();
 
 	}
 
