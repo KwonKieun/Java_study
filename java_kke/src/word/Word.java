@@ -113,7 +113,7 @@ public class Word implements Serializable{
 		meanList.add(new Mean(partOfSpeech, mean));
 		
 	}
-	public Word(String word2, List<Mean> newMeanList) {
+	public Word(String word, List<Mean> newMeanList) {
 		this.word = word;
 		this.meanList = newMeanList != null ? newMeanList : new ArrayList<Mean>();
 	}
