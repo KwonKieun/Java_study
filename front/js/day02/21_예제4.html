@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>예제4</title>
+	<style>
+		.container{ width: 600px; margin: 0 auto;}
+		.img-container{
+			display: flex;
+			justify-content: space-between;
+			flex-wrap: wrap;
+		}
+		.img-box{
+			border: 1px solid black; width: 30%;
+			border-radius: 5px; padding: 5px;
+			cursor: pointer;
+		}
+		.img-box img{
+			width: 100%; display: block; height: 180px;
+			border-radius: 5px;
+		}
+		.show{
+			border: 1px solid black; padding: 5px;
+			box-sizing: border-box; border-radius: 5px;
+			margin-top: 10px;
+		}
+		.show img{
+			display: block; height: 588px; border-radius: 5px;
+			visibility: hidden;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="img-container">
+			<div class="img-box">
+				<img src="https://img.sbs.co.kr/newimg/news/20180827/201221702_500.jpg" alt="인절미1">
+			</div>
+			<div class="img-box">
+				<img src="https://dispatch.cdnser.be/wp-content/uploads/2018/08/20180817163321_1533961143.jpg" alt="인절미2">
+			</div>
+			<div class="img-box">
+				<img src="https://mblogthumb-phinf.pstatic.net/MjAxODA4MjlfNzMg/MDAxNTM1NTA4MjIyNTk5.tmRdDdA92VWbetEhpRXS7lXJ4xdhxWWHBZEgUFUlBX0g.3fFrnLwF6LT2CgAcgL8MuCZYju29DUVoG8FZtMD69Kog.JPEG.darori78/1535498077459.jpg?type=w800" alt="인절미3">
+			</div>
+		</div>
+		<div class="show">
+			<img src="" alt="확대">
+		</div>
+	</div>
+	<script>
+		/*
+		여러개의 이미지가있고, 이미지를 클릭하면 클릭한 이미지가 크게 보이는 예제
+		*/
+		document.querySelectorAll('.img-box').forEach(element=>{
+			element.onclick = function(){
+				let src = this.getElementsByTagName('img')[0].src;
+				let showImg = document.querySelector('.show img');
+				showImg.src = src;
+				showImg.style.visibility = 'visible';
+			}
+		});
+	</script>
+</body>
+</html>
