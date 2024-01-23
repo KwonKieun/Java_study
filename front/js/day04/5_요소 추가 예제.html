@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>요소 추가 예제</title>
+</head>
+<body>
+	<button id="btn">이미지 추가</button>
+	<div id="box"></div>
+	<script>
+		let btn = document.getElementById("btn");
+		btn.onclick = function(){
+			let img = document.createElement("img");
+			let src = document.createAttribute("src");
+			let alt = document.createAttribute("alt");
+			let width = document.createAttribute("width");
+			//src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEQCGjBzYhlLwaMewBvxx2zrF1TXgdXieK_Q&usqp=CAU"
+			src.value = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEQCGjBzYhlLwaMewBvxx2zrF1TXgdXieK_Q&usqp=CAU";
+			//alt="마루는 강쥐"
+			alt.value = "마루는 강쥐";
+			//width=100
+			width.value = "100";
+			img.setAttributeNode(src);
+			img.setAttributeNode(alt);
+			img.setAttributeNode(width);
+			//<img alt="강아지" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEQCGjBzYhlLwaMewBvxx2zrF1TXgdXieK_Q&usqp=CAU">
+			let box = document.getElementById("box");
+			box.append(img);
+		}
+	</script>
+</body>
+</html>
