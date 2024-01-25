@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>유효성 검사 예제</title>
+	<script src="../../static/jquery.js"></script>
+	<style>
+		.error{
+			color: red; display: block;
+		}
+	</style>
+</head>
+<body>
+	<input type="text" class="input">
+	<label class="error"></label>
+	<script>
+		/* input 태그에 값을 입력해서
+		숫자가 아니면
+		input 태그 아래에 입력한 값은 숫자가 아닙니다 라고 출력하는 코드 작성 */
+		$(".input").change(function(){ //this 사용해야 하므로 function
+			let text = $(this).val();
+			let regex = /^\d+$/; //(정규표현식) 숫자가 한 개 이상
+			let str = "";
+			//text가 정규 표현식에 맞으면
+			if(!regex.test(text)){
+				str = "입력한 값은 숫자가 아닙니다.";
+			}else{
+				str = "입력한 값은 숫자가 맞습니다.";
+			}
+			$(".error").text(str);
+		});
+	</script>
+</body>
+</html>
