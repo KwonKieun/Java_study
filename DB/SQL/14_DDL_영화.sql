@@ -154,8 +154,16 @@ DROP TABLE IF EXISTS `ticketing_list`;
 
 CREATE TABLE `ticketing_list` (
 	`tl_num`	int	PRIMARY KEY AUTO_INCREMENT,
-	`tl_ti_num2`	int	NOT NULL,
+	`tl_ti_num`	int	NOT NULL,
 	`tl_se_num`	int	NOT NULL
+);
+
+DROP TABLE IF EXISTS `price`;
+
+CREATE TABLE `price` (
+	`pr_num`	int	PRIMARY KEY auto_increment,
+	`pr_type`	varchar(5)	NOT NULL,
+	`pr_price`	int	NOT NULL
 );
 
 ALTER TABLE `seat` ADD CONSTRAINT `FK_screen_TO_seat_1` FOREIGN KEY (
