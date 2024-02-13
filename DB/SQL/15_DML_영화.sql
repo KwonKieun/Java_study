@@ -276,3 +276,39 @@ VALUES(NULL, 1, 1), (NULL, 1, 2);
 select * from ticketing_list;
 
 
+# 영화관의 전체 좌석수와 전체 상영관수를 현재 데이터를 기준으로 업데이트하는 쿼리
+UPDATE theater 
+SET 
+    th_seat = (SELECT 
+            SUM(sc_seat)
+        FROM
+            screen
+        WHERE
+            sc_th_num = 1),
+    th_screen = (SELECT 
+            COUNT(sc_num)
+        FROM
+            screen
+        WHERE
+            sc_th_num = 1)
+WHERE
+    th_num = 1;
+
+# 폴킹 감독이 웡카 영화(1)에 감독으로 참여하는 쿼리
+INSERT INTO `join`
+SELECT 1, '감독', 1, mp_num
+FROM
+    movie_person
+        JOIN
+    `character` ON mp_ch_num = ch_num
+WHERE
+    ch_name = '폴 킹' AND mp_role = '감독';
+
+
+
+
+
+
+
+
+
