@@ -156,3 +156,58 @@ LIMIT 0, 5;
 # 가격이 제일 비싼 제품을 조회
 SELECT * FROM PRODUCT ORDER BY PR_PRICE DESC
 LIMIT 0, 1;
+
+
+# 카테고리별 등록된 제품 수를 조회하는 쿼리
+SELECT 
+    ca_name, IF(count(pr_ca_num) > 0, count(pr_ca_num), '등록된 제품 없음') AS '카테고리별 제품수'
+FROM
+    product
+        RIGHT JOIN
+    category ON pr_ca_num = ca_num
+GROUP BY ca_num;
+
+# 회원별 누적 주문 금액을 조회하는 쿼리
+SELECT 
+    me_id AS '회원', IFNULL(SUM(or_total_price), 0) AS '회원별 누적 주문금액'
+FROM
+    `order`
+        RIGHT JOIN
+    `member` ON or_me_id = me_id
+GROUP BY me_id;
+
+# 회원별 등급을 조회하는 쿼리
+# 등급은 기본이 브론즈, 누적금액이 5만원 이상이면 실버, 누적 금액이 8만원 이상이면 골드
+# CASE문 활용
+SELECT 
+    me_id AS '회원',
+    CASE
+    WHEN IFNULL(SUM(or_total_price), 0) >= 80000 THEN '골드'
+    WHEN IFNULL(SUM(or_total_price), 0) >= 80000 THEN '실버'
+    ELSE '브론즈'
+    END AS '등급'
+FROM
+    `order`
+        RIGHT JOIN
+    `member` ON or_me_id = me_id
+GROUP BY me_id;
+
+# 제품 첨부파일을 추가한 후, 추가한 파일이 이미지인지 동영상인지 조회하는 쿼리
+SELECT
+	CASE RIGHT(IM_FILE, 3)
+    WHEN 'JPG' THEN '이미지'
+    WHEN 'PNG' THEN '이미지'
+    WHEN 'MP4' THEN '영상'
+    END AS 종류,
+    IM_FILE
+FROM IMAGE;
+
+
+
+
+
+
+
+
+
+
