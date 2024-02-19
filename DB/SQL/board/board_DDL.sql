@@ -1,4 +1,5 @@
-create database board;
+DROP DATABASE IF EXISTS board;
+create database if not exists board;
 use board;
 
 DROP TABLE IF EXISTS `User`;
@@ -41,21 +42,11 @@ CREATE TABLE `category` (
 	`c_name`	varchar(20) not null unique
 );
 
-DROP TABLE IF EXISTS `reply`;
-
-CREATE TABLE `reply` (
-	`r_num`	int auto_increment NOT NULL primary key,
-	`r_content`	text not NULL,
-	`r_date`	date not NULL,
-	`r_u_id`	varchar(13) NOT NULL,
-	`r_p_num`	int NOT NULL
-);
-
 DROP TABLE IF EXISTS `comment`;
 
 CREATE TABLE `comment` (
 	`com_num` int auto_increment NOT NULL PRIMARY KEY,
-    `com_content` varchar(100) NOT NULL,
+    `com_content` text NOT NULL,
     `com_date` date not null,
     `com_u_id` varchar(13) NOT NULL,
     `com_p_num` int NOT NULL
@@ -81,21 +72,6 @@ ALTER TABLE `post` ADD CONSTRAINT `FK_User_TO_post_1` FOREIGN KEY (
 REFERENCES `User` (
 	`u_id`
 );
-
-ALTER TABLE `reply` ADD CONSTRAINT `FK_User_TO_reply_1` FOREIGN KEY (
-	`r_u_id`
-)
-REFERENCES `User` (
-	`u_id`
-);
-
-ALTER TABLE `reply` ADD CONSTRAINT `FK_post_TO_reply_1` FOREIGN KEY (
-	`r_p_num`
-)
-REFERENCES `post` (
-	`p_num`
-);
-
 
 ALTER TABLE `comment` ADD CONSTRAINT `FK_User_TO_comment_1` FOREIGN KEY (
 	`com_u_id`
