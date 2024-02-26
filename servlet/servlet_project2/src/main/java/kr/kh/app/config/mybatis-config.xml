@@ -17,5 +17,6 @@
   <mappers>
     <!-- <mapper resource="경로/Mapper명1.xml"/> -->
     <mapper resource="kr/kh/app/dao/MemberMapper.xml"/>
+    <mapper resource="kr/kh/app/dao/BoardMapper.xml"/>
   </mappers>
 </configuration>
