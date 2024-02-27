@@ -14,7 +14,7 @@
 <div class="container">
 <form action="<c:url value="/board/insert"/>" method="post">
 	<h2>게시글 등록</h2>
-		<div class="mb-3 mt-3">
+	<div class="mb-3 mt-3">
 		<label for="community" class="form-label">게시판:</label>
 		<select class="form-control" name="community" id="community">
 			<c:forEach items="${list}" var="community">
