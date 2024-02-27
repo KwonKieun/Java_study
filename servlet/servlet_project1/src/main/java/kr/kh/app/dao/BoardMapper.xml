@@ -27,9 +27,34 @@
 		SELECT * FROM COMMUNITY
 	</select>
 	<select id="selectBoardList" resultMap="BoardMap">
-		SELECT * FROM BOARD ORDER BY BO_NUM DESC
+		SELECT * FROM BOARD
+		<if test='cri.type=="all"'>
+			WHERE bo_title LIKE CONCAT('%', #{cri.search}, '%')
+					or bo_me_id = #{cri.search}
+		</if>
+		<if test='cri.type=="title"'>
+			WHERE bo_title LIKE CONCAT('%', #{cri.search}, '%')
+		</if>
+		<if test='cri.type=="writer"'>
+			WHERE bo_me_id = #{cri.search}
+		</if>
+		ORDER BY BO_NUM DESC
+		LIMIT #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	<select id="selectCommunity" resultType="kr.kh.app.model.vo.CommunityVO">
 		SELECT * FROM COMMUNITY WHERE co_num = #{bo_co_num}
+	</select>
+	<select id="selectTotalCount" resultType="int">
+		SELECT COUNT(*) FROM BOARD
+		<if test='cri.type=="all"'>
+			WHERE bo_title LIKE CONCAT('%', #{cri.search}, '%')
+					or bo_me_id = #{cri.search}
+		</if>
+		<if test='cri.type=="title"'>
+			WHERE bo_title LIKE CONCAT('%', #{cri.search}, '%')
+		</if>
+		<if test='cri.type=="writer"'>
+			WHERE bo_me_id = #{cri.search}
+		</if>
 	</select>
 </mapper>
