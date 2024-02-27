@@ -28,4 +28,7 @@
 		VALUES(#{board.bo_title},#{board.bo_content},#{board.bo_me_id},#{board.bo_co_num})
 	</insert>
 	
+	<select id="selectCommunityList" resultType="kr.kh.app.model.vo.CommunityVO">
+		SELECT * FROM community
+	</select>
 </mapper>
