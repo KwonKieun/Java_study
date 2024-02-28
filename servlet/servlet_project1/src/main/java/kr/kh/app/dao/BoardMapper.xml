@@ -63,4 +63,7 @@
 	<update id="updateView">
 		UPDATE board set bo_view = bo_view + 1 WHERE bo_num = #{num}
 	</update>
+	<delete id="deleteBoard">
+		DELETE FROM board WHERE bo_num = #{num}
+	</delete>
 </mapper>
