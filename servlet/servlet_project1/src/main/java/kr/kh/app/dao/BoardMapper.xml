@@ -57,4 +57,10 @@
 			WHERE bo_me_id = #{cri.search}
 		</if>
 	</select>
+	<select id="selectBoard" resultMap="BoardMap">
+		SELECT * FROM board WHERE bo_num = #{num}
+	</select>
+	<update id="updateView">
+		UPDATE board set bo_view = bo_view + 1 WHERE bo_num = #{num}
+	</update>
 </mapper>
