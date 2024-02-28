@@ -29,7 +29,7 @@ public class BoardDetailServlet extends HttpServlet {
 		//서비스에게 게시글 번호를 주면서 게시글 조회수를 증가하라고 시킴
 		boardService.updateView(num);
 		//서비스에게 게시글 번호를 주면서 게시글을 가져오라고 시킴
-		BoardVO board = boardService.getBoardList(num);
+		BoardVO board = boardService.getBoard(num);
 		//화면에 게시글을 전송
 		request.setAttribute("board", board);
 		//화면을 전송

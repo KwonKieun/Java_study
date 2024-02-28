@@ -17,10 +17,12 @@ public interface BoardService {
 
 	int getTotalCount(Criteria cri);
 
-	BoardVO getBoardList(int num);
+	BoardVO getBoard(int num);
 
 	boolean updateView(int num);
 
 	boolean deleteBoard(int num, MemberVO user);
 
+	boolean updateBoard(BoardVO board, MemberVO user);
+	
 }
