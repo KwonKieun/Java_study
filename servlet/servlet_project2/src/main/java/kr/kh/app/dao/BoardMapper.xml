@@ -65,4 +65,15 @@
 	<select id="selectCommunityList" resultType="kr.kh.app.model.vo.CommunityVO">
 		SELECT * FROM community
 	</select>
+	
+	<update id="updateView">
+		UPDATE board
+		SET bo_view = bo_view + 1
+		WHERE bo_num = #{num}
+	</update>
+	
+	<select id="selectBoard">
+		SELECT * FROM board
+		WHERE bo_num = #{num}
+	</select>
 </mapper>
