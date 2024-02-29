@@ -72,7 +72,7 @@
 		WHERE bo_num = #{num}
 	</update>
 	
-	<select id="selectBoard">
+	<select id="selectBoard" resultMap="BoardMap">
 		SELECT * FROM board
 		WHERE bo_num = #{num}
 	</select>
