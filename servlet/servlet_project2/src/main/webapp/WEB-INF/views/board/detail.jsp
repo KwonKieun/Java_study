@@ -35,13 +35,15 @@
 				<label for="content" class="form-label">내용:</label>
 				<textarea rows="10" class="form-control" readonly>${board.bo_content}</textarea>
 		  	</div>
-		  	<a href="<c:url value='/board/list'/>" class="btn btn-outline-dark">목록으로</a>
-		  	<a href="" class="btn btn-outline-danger">삭제</a>
   		</c:when>
   		<c:otherwise>
   			<h1>없는 게시글이거나 삭제된 게시글입니다.</h1>
   		</c:otherwise>
 	</c:choose>
+	<a href="<c:url value='/board/list'/>" class="btn btn-outline-dark">목록으로</a>
+  	<c:if test="${board.bo_me_id.equals(user.me_id)}">
+  		<a href="<c:url value="/board/delete?num=${board.bo_num}"/>" class="btn btn-outline-danger">삭제</a>
+  	</c:if>
 </div>
 </body>
 </html>

@@ -76,4 +76,9 @@
 		SELECT * FROM board
 		WHERE bo_num = #{num}
 	</select>
+	
+	<delete id="deleteBoard">
+		DELETE FROM board
+		WHERE bo_num = #{num}
+	</delete>
 </mapper>
