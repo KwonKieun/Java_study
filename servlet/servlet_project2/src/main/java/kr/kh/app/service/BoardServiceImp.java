@@ -102,8 +102,8 @@ public class BoardServiceImp implements BoardService {
 	public boolean updateBoard(MemberVO user, BoardVO board) {
 		//게시글 null 체크
 		if(board == null ||
-				!checkString(board.getBo_title()) ||
-				!checkString(board.getBo_content())) {
+				checkString(board.getBo_title()) ||
+				checkString(board.getBo_content())) {
 			return false;
 		}
 		//회원 null 체크

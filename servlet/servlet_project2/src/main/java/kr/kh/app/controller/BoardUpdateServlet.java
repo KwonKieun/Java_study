@@ -53,6 +53,7 @@ public class BoardUpdateServlet extends HttpServlet {
 		
 		//게시글 번호, 제목, 내용, 게시판 번호를 이용해서 게시글 객체를 생성
 		BoardVO board = new BoardVO(num, title, content, community);
+		System.out.println(board);
 		//회원 가져옴
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
 		//서비스에게 회원 정보와 수정할 게시글 정보를 주면서 수정하라고 요청
