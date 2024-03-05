@@ -119,8 +119,27 @@ public class BoardServiceImp implements BoardService {
 		if(board == null || !board.getBo_me_id().equals(user.getMe_id())) {
 			return false;
 		}
+		
+		ArrayList<FileVO> fileList = boardDao.selectFileByBo_num(num);
+		
+		for(FileVO file : fileList) {
+			deleteFile(file);			
+		}
+		
 		//게시글을 삭제 요청
 		return boardDao.deleteBoard(num);
+	}
+
+	private void deleteFile(FileVO fileVo) {
+		if(fileVo == null) {
+			return;
+		}
+		File file = new File(uploadPath
+				+ fileVo.getFi_name().replace('/', File.separatorChar));
+		if(file.exists()) {
+			file.delete();
+		}
+		boardDao.deleteFile(fileVo.getFi_num());
 	}
 
 	@Override
@@ -160,5 +179,11 @@ public class BoardServiceImp implements BoardService {
   		FileVO fileVo = new FileVO(bo_num, fileName, fileOriginalName);
   
   		boardDao.insertFile(fileVo);
+	}
+
+	@Override
+	public ArrayList<FileVO> getFile(int num) {
+		
+		return boardDao.selectFileByBo_num(num);
 	}
 }
