@@ -86,4 +86,8 @@
 		DELETE FROM file
 		WHERE fi_num = #{fi_num}
 	</delete>
+	<select id="selectFile" resultType="kr.kh.app.model.vo.FileVO">
+		SELECT * FROM file
+		WHERE fi_num = #{fi_num}
+	</select>
 </mapper>
