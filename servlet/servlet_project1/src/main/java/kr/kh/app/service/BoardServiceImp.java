@@ -106,9 +106,9 @@ public class BoardServiceImp implements BoardService {
 		//게시글의 첨부파일을 서버 폴더에서 삭제(실제 파일)
 		//게시글의 첨부파일을 DB에서 삭제(CASCADE로 대체 가능)
 		//게시글에 있는 첨부파일 정보를 가져옴
-		FileVO file = boardDao.selectFileByBo_num(num);
+		//FileVO file = boardDao.selectFileByBo_num(num);
 		
-		deleteFile(file);
+		//deleteFile(file);
 
 		//같으면 게시글 삭제 후 삭제 여부를 반환
 		return boardDao.deleteBoard(num);
@@ -178,7 +178,7 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public FileVO getFile(int num) {
+	public ArrayList<FileVO> getFile(int num) {
 		
 		return boardDao.selectFileByBo_num(num);
 	}
