@@ -82,4 +82,8 @@
 		SELECT * FROM file
 		WHERE fi_bo_num = #{num}
 	</select>
+	<delete id="deleteFile">
+		DELETE FROM file
+		WHERE fi_num = #{fi_num}
+	</delete>
 </mapper>
