@@ -133,7 +133,7 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public boolean updateBoard(MemberVO user, BoardVO board, ArrayList<Integer> nums, ArrayList<Part> fileList) {
+	public boolean updateBoard(MemberVO user, BoardVO board, String[] nums, ArrayList<Part> partList) {
 		//게시글 null 체크
 		if(board == null ||
 				checkString(board.getBo_title()) ||
@@ -152,14 +152,19 @@ public class BoardServiceImp implements BoardService {
 		}
 		
 		//첨부파일 추가
-		for(Part file : fileList) {			
-			uploadFile(file, board.getBo_num());
+		for(Part part : partList) {			
+			uploadFile(part, board.getBo_num());
 		}
 		
 		//첨부파일 삭제
-		for(int fi_num : nums) {
-			FileVO fileVo = boardDao.selectFile(fi_num);
-			deleteFile(fileVo);
+		for(String numStr : nums) {
+			try {
+				int num = Integer.parseInt(numStr);
+				FileVO fileVo = boardDao.selectFile(num);
+				deleteFile(fileVo);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		

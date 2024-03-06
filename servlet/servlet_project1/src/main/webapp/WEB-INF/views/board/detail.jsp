@@ -9,6 +9,9 @@
 <!-- 부트스트랩5 css/js -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="//code.jquery.com/jquery-3.6.1.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.js"></script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/header.jsp"/>
@@ -33,9 +36,13 @@
 				    <label for="view" class="form-label">조회수:</label>
 				    <input type="text" class="form-control" id="view" name="view" readonly value="${board.bo_view}">
 		  		</div>
+		  		<div class="mb-3 mt-3 clearfix">
+		  			<button type="button" id="btnUp" data-state="1" class="btn btn-outline-success col-3 float-start">추천</button>
+		  			<button type="button" id="btnDown" data-state="-1" class="btn btn-outline-danger col-3 float-end">비추천</button>
+		  		</div>
 		  		<div class="mb-3 mt-3">
 				    <label for="content" class="form-label">내용:</label>
-				    <textarea rows="10" class="form-control" id="content" name="content" readonly>${board.bo_content}</textarea>
+				    <div class="form-control" style="min-height: 400px;">${board.bo_content}</div>
 		  		</div>
 		  		<c:if test="${fileList != null && fileList.size() != 0}">
 			  		<div class="mb-3 mt-3">
@@ -57,5 +64,45 @@
 		</c:otherwise>
 	</c:choose>
 </div>
+<script type="text/javascript">
+	let btnUp = document.getElementById("btnUp");
+	let btnDown = document.getElementById("btnDown");
+	
+	btnUp.onclick = recommend;
+	
+	btnDown.onclick = recommend;
+	
+	function recommend() {
+		//로그인 안 했으면
+		if('${user.me_id}' == ''){
+			if(confirm("로그인이 필요한 서비스입니다. 로그인 화면으로 이동하시겠습니까?")){
+				location.href = "<c:url value='/login'/>";
+			}
+			//취소 누르면 현재 페이지에서 추천/비추천 동작을 안 함
+			else{
+				return;
+			}
+		}
+		
+		let boNum = '${board.bo_num}';
+		
+		//state가 1이면 추천, -1이면 비추천
+		let state = this.getAttribute("data-state");
+
+		//해당 url로 boNum과 state 값을 보냄.
+		fetch(`<c:url value="/recommend"/>?boNum=\${boNum}&state=\${state}`)
+			.then(response => response.text())
+			.then(data => {
+				let str = state == 1 ? '추천' : '비추천';
+				switch(data){
+				case "1":	 alert('게시글을 추천했습니다.'); break;
+				case "-1":	 alert('게시글을 비추천했습니다.'); break;
+				case "0":	 alert(`게시글 \${str}을 취소했습니다.`); break;
+				default:	 alert(data);
+				}
+			})
+			.catch(error => console.error(error));
+	}
+</script>
 </body>
 </html>

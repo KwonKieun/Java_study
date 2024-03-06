@@ -43,6 +43,7 @@ public class BoardUpdateServlet extends HttpServlet {
 		
 		//파일 리스트 가져옴
 		ArrayList<FileVO> fileList = boardService.getFileList(num);
+		//가져온 첨부파일 리스트를 화면에 전송
 		request.setAttribute("fileList", fileList);
 		
 		//게시글과 게시판 리스트를 화면에 전송
@@ -70,25 +71,13 @@ public class BoardUpdateServlet extends HttpServlet {
 		//회원 가져옴
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
 		
-		//새로 추가된 첨부파일 정보를 가져옴
-		ArrayList<Part> fileList = (ArrayList<Part>) request.getParts();
 		//삭제할 첨부파일 정보 가져옴
-		String numsStr [] = request.getParameterValues("fi_num");
-		
-		ArrayList<Integer> nums = new ArrayList<Integer>();
-		if(numsStr != null) {
-			for(String numStr : numsStr) {
-				try {
-					int fi_num = Integer.parseInt(numStr);
-					nums.add(fi_num);
-				}catch(Exception e) {
-					
-				}
-			}
-		}
-		
+		String nums [] = request.getParameterValues("fi_num");
+		//새로 추가할 첨부파일 정보 가져옴
+		ArrayList<Part> partList = (ArrayList<Part>) request.getParts();
+
 		//서비스에게 회원 정보와 수정할 게시글 정보를 주면서 수정하라고 요청
-		boolean res = boardService.updateBoard(user, board, nums, fileList);
+		boolean res = boardService.updateBoard(user, board, nums, partList);
 		//수정했으면 게시글을 수정했습니다
 		if(res) {
 			request.setAttribute("msg", "게시글을 수정했습니다.");
