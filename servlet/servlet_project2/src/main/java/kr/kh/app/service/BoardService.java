@@ -26,7 +26,7 @@ public interface BoardService {
 
 	boolean deleteBoard(int num, MemberVO user);
 
-	boolean updateBoard(MemberVO user, BoardVO board);
+	boolean updateBoard(MemberVO user, BoardVO board, ArrayList<Integer> nums, ArrayList<Part> fileList);
 
 	ArrayList<FileVO> getFileList(int num);
 

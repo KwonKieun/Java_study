@@ -120,6 +120,8 @@ public class BoardServiceImp implements BoardService {
 			return false;
 		}
 		
+		//첨부파일을 삭제
+		//게시글 번호에 맞는 첨부파일을 가져오라고 시킴
 		ArrayList<FileVO> fileList = boardDao.selectFileList(num);
 		
 		for(FileVO file : fileList) {
@@ -130,20 +132,8 @@ public class BoardServiceImp implements BoardService {
 		return boardDao.deleteBoard(num);
 	}
 
-	private void deleteFile(FileVO fileVo) {
-		if(fileVo == null) {
-			return;
-		}
-		File file = new File(uploadPath
-				+ fileVo.getFi_name().replace('/', File.separatorChar));
-		if(file.exists()) {
-			file.delete();
-		}
-		boardDao.deleteFile(fileVo.getFi_num());
-	}
-
 	@Override
-	public boolean updateBoard(MemberVO user, BoardVO board) {
+	public boolean updateBoard(MemberVO user, BoardVO board, ArrayList<Integer> nums, ArrayList<Part> fileList) {
 		//게시글 null 체크
 		if(board == null ||
 				checkString(board.getBo_title()) ||
@@ -160,6 +150,20 @@ public class BoardServiceImp implements BoardService {
 		if(dbBoard == null || !dbBoard.getBo_me_id().equals(user.getMe_id())) {
 			return false;
 		}
+		
+		//첨부파일 추가
+		for(Part file : fileList) {			
+			uploadFile(file, board.getBo_num());
+		}
+		
+		//첨부파일 삭제
+		for(int fi_num : nums) {
+			FileVO fileVo = boardDao.selectFile(fi_num);
+			deleteFile(fileVo);
+		}
+		
+		
+		
 		//같으면 게시글 수정
 		return boardDao.updateBoard(board);
 	}
@@ -181,6 +185,16 @@ public class BoardServiceImp implements BoardService {
   		boardDao.insertFile(fileVo);
 	}
 
+	private void deleteFile(FileVO fileVo) {
+		if(fileVo == null) {
+			return;
+		}
+		String fileName = uploadPath + fileVo.getFi_name().replace('/', File.separatorChar);
+		//서버에서 실제 파일을 삭제
+		FileUploadUtils.deleteFile(fileName);
+		boardDao.deleteFile(fileVo.getFi_num());
+	}
+	
 	@Override
 	public ArrayList<FileVO> getFileList(int num) {
 		
