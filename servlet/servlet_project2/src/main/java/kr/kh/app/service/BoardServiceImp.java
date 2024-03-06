@@ -120,7 +120,7 @@ public class BoardServiceImp implements BoardService {
 			return false;
 		}
 		
-		ArrayList<FileVO> fileList = boardDao.selectFileByBo_num(num);
+		ArrayList<FileVO> fileList = boardDao.selectFileList(num);
 		
 		for(FileVO file : fileList) {
 			deleteFile(file);			
@@ -182,8 +182,8 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public ArrayList<FileVO> getFile(int num) {
+	public ArrayList<FileVO> getFileList(int num) {
 		
-		return boardDao.selectFileByBo_num(num);
+		return boardDao.selectFileList(num);
 	}
 }

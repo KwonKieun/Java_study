@@ -95,9 +95,9 @@
 		VALUES(#{file.fi_bo_num},#{file.fi_name},#{file.fi_ori_name})
 	</insert>
 	
-	<select id="selectFileByBo_num" resultType="kr.kh.app.model.vo.FileVO">
+	<select id="selectFileList" resultType="kr.kh.app.model.vo.FileVO">
 		SELECT * FROM file
-		WHERE fi_bo_num = #{num}
+		WHERE fi_bo_num = #{bo_num}
 	</select>
 	
 	<delete id="deleteFile">
