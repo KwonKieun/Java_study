@@ -43,6 +43,10 @@
 				    </c:forEach>
 		  		</div>
 	  		</c:if>
+	  		<div class="mb-3 mt-3 clearfix">
+	  			<button type="button" data-state="1" class="btn btn-outline-success btn-up float-start col-5">추천</button>
+	  			<button type="button" data-state="-1" class="btn btn-outline-success btn-down float-end col-5">비추천</button>
+			</div>
   		</c:when>
   		<c:otherwise>
   			<h1>없는 게시글이거나 삭제된 게시글입니다.</h1>
@@ -54,5 +58,64 @@
   		<a href="<c:url value="/board/update?num=${board.bo_num}"/>" class="btn btn-outline-success">수정</a>
   	</c:if>
 </div>
+<script src="//code.jquery.com/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+	$(".btn-up, .btn-down").click(function(){
+		
+		if('${user.me_id}' == ''){
+			if(confirm("로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?")){
+				location.href = '<c:url value="/login"/>'
+			}else{
+				return;
+			}
+		}
+		
+		let state = $(this).data('state');
+		let boNum = '${board.bo_num}'; //게시글이 없는 경우 스크립트 오류가 생기지 않기 위해 '' 붙임
+		$.ajax({
+			url : '<c:url value="/recommend"/>',
+			method : 'get',
+			async : true, //동기/비동기 선택, true : 비동기, false : 동기 /// 비동기 : 앞의 작업이 끝나지 않아도 진행됨.
+			data : {
+				"state" : state,
+				"boNum" : boNum  // "" 생략 가능
+			},
+			success : function(data){
+				initBtn(".btn-up","btn-outline-success","btn-success");
+				initBtn(".btn-down","btn-outline-success","btn-success");
+				switch(data){
+				case "1":
+					alert("추천 되었습니다.");
+					initBtn(".btn-up","btn-success","btn-outline-success");
+					break;
+				case "0":
+					alert(`\${state == 1 ? '' : '비'}추천이 취소되었습니다.`);
+					break;
+				case "-1":
+					alert("비추천 되었습니다.");
+					initBtn(".btn-down","btn-success","btn-outline-success");
+					break;
+				}
+			},
+			error : function(a, b, c){
+				console.error("예외 발생");
+			}
+		}); //ajax end
+	}); //click end
+	
+	function initBtn(selector, addClassName, removeClassName){
+		$(selector).addClass(addClassName);
+		$(selector).removeClass(removeClassName);
+	}
+	
+	<c:if test="${recommend != null}">
+		<c:if test="${recommend.re_state == 1}">
+			initBtn(".btn-up","btn-success","btn-outline-success");
+		</c:if>
+		<c:if test="${recommend.re_state == -1}">
+			initBtn(".btn-down","btn-success","btn-outline-success");
+		</c:if>
+	</c:if>
+</script>
 </body>
 </html>
