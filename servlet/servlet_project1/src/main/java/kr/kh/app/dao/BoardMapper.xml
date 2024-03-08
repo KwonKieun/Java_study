@@ -108,4 +108,10 @@
 		INSERT INTO comment(cm_bo_num, cm_content, cm_me_id)
 		VALUES(#{co.cm_bo_num},#{co.cm_content},#{co.cm_me_id})
 	</insert>
+	<select id="selectCommentList" resultType="kr.kh.app.model.vo.CommentVO">
+		SELECT * FROM comment
+		WHERE cm_bo_num = #{cri.boNum}
+		ORDER BY cm_num DESC
+		LIMIT #{cri.pageStart},#{cri.perPageNum}
+	</select>
 </mapper>
