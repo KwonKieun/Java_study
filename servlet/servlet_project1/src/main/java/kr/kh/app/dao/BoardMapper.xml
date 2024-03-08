@@ -114,4 +114,16 @@
 		ORDER BY cm_num DESC
 		LIMIT #{cri.pageStart},#{cri.perPageNum}
 	</select>
+	<select id="selectTotalCountComment" resultType="int">
+		SELECT COUNT(*) FROM comment
+		WHERE cm_bo_num = #{cri.boNum}
+	</select>
+	<select id="selectComment" resultType="kr.kh.app.model.vo.CommentVO">
+		SELECT * FROM COMMENT
+		WHERE cm_num = #{cm_num}
+	</select>
+	<delete id="deleteComment">
+		DELETE FROM comment
+		WHERE cm_num = #{cm_num}
+	</delete>
 </mapper>
