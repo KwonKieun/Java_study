@@ -104,4 +104,8 @@
 		re_state = #{re.re_state}
 		WHERE re_num = #{re.re_num}
 	</update>
+	<insert id="insertComment">
+		INSERT INTO comment(cm_bo_num, cm_content, cm_me_id)
+		VALUES(#{co.cm_bo_num},#{co.cm_content},#{co.cm_me_id})
+	</insert>
 </mapper>
