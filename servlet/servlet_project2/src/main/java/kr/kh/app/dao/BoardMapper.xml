@@ -126,4 +126,16 @@
 		re_state = #{re.re_state}
 		WHERE re_num = #{re.re_num}
 	</update>
+	
+	<select id="selectCommentList" resultType="kr.kh.app.model.vo.CommentVO">
+		SELECT * FROM comment
+		WHERE cm_bo_num = #{cri.search}
+		ORDER BY cm_num DESC
+		LIMIT #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="selectTotalCommentCount" resultType="int">
+		SELECT COUNT(*) FROM comment
+		WHERE cm_bo_num = #{cri.search}
+	</select>
 </mapper>
