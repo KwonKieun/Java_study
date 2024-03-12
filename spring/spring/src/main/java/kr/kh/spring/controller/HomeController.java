@@ -20,10 +20,10 @@ public class HomeController {
 	//value : url, method : 전송방식 GET 또는 POST
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
-		MemberVO member = memberService.getMember("admin");
+		MemberVO member = memberService.getMember("admin1");
 		System.out.println(member);
-		//model.addAttribute("화면에서 사용할 이름", "보낼 데이터");
-		model.addAttribute("name", "홍길동");
+		//model.addAttribute("화면에서 사용할 이름","보낼 데이터");
+		model.addAttribute("name","홍길동");
 		return "home";
 	}
 	

@@ -7,6 +7,6 @@
 		SELECT COUNT(*) FROM member
 	</select>
 	<select id="selectMember" resultType="MemberVO">
-		select * from member where me_id = #{id}
-	</select>
+  		select * from member where me_id = #{id}
+  	</select>
 </mapper>

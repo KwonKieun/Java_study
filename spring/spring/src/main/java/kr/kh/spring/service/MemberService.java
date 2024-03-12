@@ -6,6 +6,6 @@ public interface MemberService {
 
 	int testCountMember();
 
-	MemberVO getMember(String id);
+	MemberVO getMember(String string);
 
 }
