@@ -78,3 +78,5 @@
 		</li>
 	</c:if>
 </ul>
+
+<a class="btn btn-outline-success" style="float: right" href="<c:url value="/board/insert"/>">글쓰기</a>
