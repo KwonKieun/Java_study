@@ -6,23 +6,23 @@
 	<select id="selectBoardList" resultType="BoardVO">
 		SELECT 
 		    board.*,
-		    co_name AS bo_co_name, 
-		    sum(case when re_state = 1 then 1 else 0 end) as bo_up,
-		    sum(case when re_state = -1 then 1 else 0 end) as bo_down
+		    co_name AS bo_co_name,
+		    SUM(CASE WHEN re_state = 1 THEN 1 ELSE 0 END) AS bo_up,
+		    SUM(CASE WHEN re_state = - 1 THEN 1 ELSE 0 END) AS bo_down
 		FROM
 		    board
 		        JOIN
 		    community ON co_num = bo_co_num
-				LEFT JOIN
-			recommend ON re_bo_num = bo_num
-		WHERE
+		        LEFT JOIN
+		    recommend ON re_bo_num = bo_num
+		where
 			<choose>
 				<when test='cri.type == "all"'>
-					bo_title LIKE CONCAT('%', #{cri.search}, '%')
-					OR bo_me_id = #{cri.search}
+					bo_title like concat('%', #{cri.search}, '%') or
+					bo_me_id = #{cri.search}
 				</when>
 				<when test='cri.type == "title"'>
-					bo_title LIKE CONCAT('%', #{cri.search}, '%')
+					bo_title like concat('%', #{cri.search}, '%')
 				</when>
 				<otherwise>
 					bo_me_id = #{cri.search}
@@ -34,58 +34,69 @@
 	</select>
 	<select id="selectBoardTotalCount" resultType="int">
 		select count(*) from board
-		WHERE
-			<choose>
-				<when test='cri.type == "all"'>
-					bo_title LIKE CONCAT('%', #{cri.search}, '%')
-					OR bo_me_id = #{cri.search}
-				</when>
-				<when test='cri.type == "title"'>
-					bo_title LIKE CONCAT('%', #{cri.search}, '%')
-				</when>
-				<otherwise>
-					bo_me_id = #{cri.search}
-				</otherwise>
-			</choose>
+		where
+		<choose>
+			<when test='cri.type == "all"'>
+				bo_title like concat('%', #{cri.search}, '%') or
+				bo_me_id = #{cri.search}
+			</when>
+			<when test='cri.type == "title"'>
+				bo_title like concat('%', #{cri.search}, '%')
+			</when>
+			<otherwise>
+				bo_me_id = #{cri.search}
+			</otherwise>
+		</choose>
 	</select>
-	
 	<select id="selectCommunityList" resultType="CommunityVO">
-		SELECT * FROM community
+		select * from community
 	</select>
 	
 	<insert id="insertBoard" useGeneratedKeys="true" keyProperty="bo.bo_num">
-		INSERT INTO board(bo_title, bo_content, bo_co_num, bo_me_id)
-		VALUES(#{bo.bo_title},#{bo.bo_content},#{bo.bo_co_num},#{bo.bo_me_id})
+		insert into board(bo_title, bo_content, bo_co_num, bo_me_id)
+		values(#{bo.bo_title},#{bo.bo_content},#{bo.bo_co_num},#{bo.bo_me_id})
 	</insert>
 	
 	<insert id="insertFile">
-		INSERT INTO file(fi_bo_num, fi_name, fi_ori_name)
-		VALUES(#{fi.fi_bo_num},#{fi.fi_name},#{fi.fi_ori_name})
+		insert into file(fi_bo_num, fi_name, fi_ori_name)
+		values(#{fi.fi_bo_num},#{fi.fi_name},#{fi.fi_ori_name})
 	</insert>
-	
-	<select id="selectBoard"  resultType="BoardVO">
+	<select id="selectBoard" resultType="BoardVO">
 		SELECT 
 		    board.*,
-		    co_name AS bo_co_name, 
-		    sum(case when re_state = 1 then 1 else 0 end) as bo_up,
-		    sum(case when re_state = -1 then 1 else 0 end) as bo_down
+		    co_name AS bo_co_name,
+		    SUM(CASE WHEN re_state = 1 THEN 1 ELSE 0 END) AS bo_up,
+		    SUM(CASE WHEN re_state = - 1 THEN 1 ELSE 0 END) AS bo_down
 		FROM
 		    board
 		        JOIN
 		    community ON co_num = bo_co_num
-				LEFT JOIN
-			recommend ON re_bo_num = bo_num
+		        LEFT JOIN
+		    recommend ON re_bo_num = bo_num
 		WHERE
 			bo_num = #{bo_num}
 	</select>
-	
 	<update id="updateView">
-		UPDATE board SET bo_view = bo_view + 1
-		WHERE bo_num = #{bo_num}
+		update board set bo_view = bo_view + 1 where bo_num = #{bo_num}
 	</update>
-	
 	<select id="selectFileList" resultType="FileVO">
-		SELECT * FROM file
-		WHERE fi_bo_num = #{bo_num}
+		select * from file where fi_bo_num = #{bo_num}
+	</select>
+	<delete id="deleteFile">
+		delete from file where fi_num = #{fi_num}
+	</delete>
+	<delete id="deleteBoard">
+		delete from board where bo_num = #{bo_num}
+	</delete>
+	<update id="updateBoard">
+		update board set 
+			bo_title = #{bo.bo_title},
+			bo_content = #{bo.bo_content},
+			bo_co_num = #{bo.bo_co_num}
+		where
+			bo_num = #{bo.bo_num}
+	</update>
+	<select id="selectFile" resultType="FileVO">
+		select * from file where fi_num = #{fi_num}
 	</select>
 </mapper>

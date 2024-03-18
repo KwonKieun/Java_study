@@ -16,7 +16,7 @@ public class UploadFileUtils {
         String savedName = uid.toString() +"_" + originalName;
         //파일을 저장할 경로(날짜 경로로 업로드하는 날짜이며, 년/월/일로 구성)
         String savedPath = calcPath(uploadPath);
-        //서버에 얼보드할 파일 객체 생성
+        //서버에 업로드할 파일 객체 생성
         File target = new File(uploadPath + savedPath, savedName);
         //파일을 서버에 업로드
         FileCopyUtils.copy(fileData, target);
@@ -52,4 +52,13 @@ public class UploadFileUtils {
         String iconName = path + File.separator + fileName;
         return iconName.replace(File.separatorChar, '/');
     }
+
+	public static void delteFile(String uploadPath, String fi_name) {
+		fi_name = fi_name.replace('/', File.separatorChar);
+		File file = new File(uploadPath + fi_name);
+		//파일이 존재하면 파일을 삭제
+		if(file.exists()) {
+			file.delete();
+		}
+	}
 }
