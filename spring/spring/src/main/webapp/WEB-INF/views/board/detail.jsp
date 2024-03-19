@@ -57,10 +57,14 @@
 		<div class="box-pagination">
 			<ul class="pagination justify-content-center"></ul>
 		</div>
-		<div class="box-commnt-insert"></div>
+		<div class="box-commnt-insert">
+			<div class="input-group mb-3">
+				<textarea class="form-control textarea-comment"></textarea>
+				<button class="btn btn-outline-success btn-comment-insert">댓글 등록</button>
+			</div>
+		</div>
 		<hr>
 	</div>
-	
 	<c:url value="/board/list" var="url">
 		<c:param name="page" value="${cri.page}"/>
 		<c:param name="type" value="${cri.type}"/>
@@ -150,6 +154,40 @@ $(document).on('click','.box-pagination .page-link',function(){
 	cri.page = $(this).data('page');
 	getCommentList(cri);
 })
+</script>
+<!-- 댓글 등록 -->
+<script type="text/javascript">
+//댓글 등록 버튼의 클릭 이벤트를 등록
+$(".btn-comment-insert").click(function(){
+	//서버에 보낼 데이터를 생성 => 댓글 등록을 위한 정보 => 댓글 내용, 게시글 번호
+	let comment = {
+		cm_content : $('.textarea-comment').val(),
+		cm_bo_num : '${board.bo_num}'
+	}
+	//서버에 데이터를 전송
+	$.ajax({
+		async : true, //비동기 : true(비동기), false(동기)
+		url : '<c:url value="/comment/insert"/>', 
+		type : 'post',
+		data : JSON.stringify(comment), 
+		contentType : "application/json; charset=utf-8",
+		dataType : "json", 
+		success : function (data){
+			if(data.result){
+				alert("댓글을 등록했습니다.");
+				$('.textarea-comment').val('');
+				cri.page = 1;
+				getCommentList(cri);
+			}else{
+				alert("댓글을 등록하지 못했습니다.")
+			}
+		}, 
+		error : function(xhr, textStatus, errorThrown){
+			console.log(xhr);
+			console.log(textStatus);
+		}
+	});
+});
 </script>
 </body>
 </html>
