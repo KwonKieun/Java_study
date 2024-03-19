@@ -23,4 +23,9 @@
 		DELETE FROM comment
 		WHERE cm_num = #{cm_num}
 	</delete>
+	<update id="updateComment">
+		UPDATE comment SET
+		cm_content = #{co.cm_content}
+		WHERE cm_num = #{co.cm_num}
+	</update>
 </mapper>
