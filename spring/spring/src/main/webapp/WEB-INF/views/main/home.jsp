@@ -7,5 +7,6 @@
 </head>
 <body>
 	<h2>메인입니다.</h2>
+	<a href="<c:url value="/find/pw"/>">비번찾기</a>
 </body>
 </html>
