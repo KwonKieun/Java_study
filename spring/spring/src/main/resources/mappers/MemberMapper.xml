@@ -23,4 +23,18 @@
   		me_email = #{me.me_email}
   		WHERE me_id = #{me.me_id}
   	</update>
+  	<update id="updateMemberCookie">
+  		UPDATE member SET
+  		me_cookie = #{user.me_cookie},
+  		me_cookie_limit = #{user.me_cookie_limit}
+  		WHERE me_id = #{user.me_id}
+  	</update>
+  	<select id="selectMemberByCookie" resultType="MemberVO">
+  		<!-- 내부 코드를 순수하게 쿼리로 인식 -->
+  		<![CDATA[ 
+  		SELECT * FROM member
+  		WHERE me_cookie = #{session_Id}
+  			and me_cookie_limit >= now()
+  		]]>
+  	</select>
 </mapper>
