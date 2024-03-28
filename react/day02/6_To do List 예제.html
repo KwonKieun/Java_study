@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>To do List 예제</title>
+	<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+	<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+</head>
+<body>
+	<div id="root"></div>
+	<script type="text/babel">
+		const root = ReactDOM.createRoot(document.getElementById("root"));
+
+		/* 입력창과 버튼을 추가하고, 입력창에 오늘의 할 일을 입력받아
+		버튼을 클릭하면 오늘의 할 일이 추가되는 코드를 작성
+		1. 입력창과 버튼을 추가
+		2. 입력창에 내용을 입력할 때 값을 저장하는 state와 코드를 작성
+		3. 버튼을 클릭하면 2번에서 저장된 값을 읽어와서 다른 state에 추가
+		4. 3번에서 추가한 state를 이용하여 화면에 오늘의 할 일을 출력 */
+		function App(){
+			let [toDo, setToDo] = React.useState("");
+			let [toDoList, setToDoList] = React.useState([]);
+
+			function inputChange(e){
+				setToDo(e.target.value);
+			}
+
+			function addToDo(){
+				setToDoList([...toDoList, toDo]);
+				setToDo("");
+			}
+
+			function removeToDo(index){
+				let tmpList = [...toDoList];
+				tmpList.splice(index,1);
+				setToDoList(tmpList);
+			}
+
+			function list(item, index){
+				return <li key={index}>{item}<button onClick={()=>{removeToDo(index)}}>&times;</button></li>
+			}
+
+			return (
+				<div>
+					<h1>To Do List</h1>
+					<input type="text" onChange={inputChange} value={toDo}/>
+					<button onClick={addToDo}>등록</button>
+					<hr/>
+					<h2>오늘의 할 일</h2>
+					<ul>
+						{toDoList.map(list)}
+					</ul>
+				</div>
+			);
+		};
+
+		root.render(<App/>)
+	</script>
+</body>
+</html>
